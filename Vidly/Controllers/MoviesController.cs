@@ -23,40 +23,26 @@ namespace Vidly.Controllers
         // GET: Movie/Random
         public ActionResult Random()
         {
-            var movie = new Movie() { Name = "The Fast & The Furious", Id = 1 };
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "John Smith" },
-                new Customer {Name = "Mary Williams" },
-            };
-
-            var viewModel = new RandomMovieViewModel
-            {
-                Movie = movie,
-                Customers = customers
-            };
+            var viewModel = GetRandomMovie();
             return View(viewModel);
-            //return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
         }
-
+        // GET: Movie/Edit
         public ActionResult Edit(int id)
         {
             return Content("Id=" + id);
         }
-        // movies
+        // Movies
         public ActionResult Index()
         {
             var movies = _context.Movies.ToList();
             return View(movies);
-            //return View(GetMovies());
         }
-        [Route("movies/released/{year}/{month:regex(\\d{4}):range(1, 12)}")]
+        [Route("movies/released/{year}/{month:regex(\\d{2}):range(1, 12)}")]
         public ActionResult ByReleaseDate(int year, int month)
         {
             return Content(year + "/" + month);
         }
-
-        // movies/Details/{id}
+        // Movies/Details/{id}
         [Route("Movies/Details/{id}")]
         public ActionResult Details(int? id)
         {
@@ -64,18 +50,20 @@ namespace Vidly.Controllers
 
             return View(model);
         }
-        /// <summary>
-        /// Hard coded movie list
-        /// </summary>
-        /// <returns></returns>
-        //private IEnumerable<Movie> GetMovies()
-        //{
-        //    var movies = new List<Movie>();
+        private RandomMovieViewModel GetRandomMovie()
+        {
+            var movie = new Movie() { Name = "The Fast & The Furious", Id = 1 };
+            var customers = new List<Customer>
+            {
+                new Customer {Name = "Johnny Customer" },
+                new Customer {Name = "Jane Customer" },
+            };
 
-        //    movies.Add(new Movie() { Name = "The Fast & The Furious", Id = 1 });
-        //    movies.Add(new Movie() { Name = "2 Fast 2 Furious", Id = 2 });
-
-        //    return movies.AsEnumerable();
-        //}
+            return new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers = customers
+            };
+        }
     }
 }
