@@ -61,7 +61,7 @@ namespace Vidly.Controllers
 
             return new RandomMovieViewModel
             {
-                //Movie = movie,
+                Movie = movie,
                 Customers = customers
             };
         }
