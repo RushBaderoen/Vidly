@@ -52,7 +52,7 @@ namespace Vidly.Controllers
         }
         private RandomMovieViewModel GetRandomMovie()
         {
-            //var movie = new Movie() { Name = "The Fast & The Furious", Id = 1 };
+            var movie = new Movie() { Name = "The Fast & The Furious", Id = 1 };
             var customers = new List<Customer>
             {
                 new Customer {Name = "Johnny Customer" },
