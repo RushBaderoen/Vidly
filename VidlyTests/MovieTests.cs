@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Vidly.Controllers;
 using Vidly.Models;
 using Vidly.ViewModels;
@@ -10,10 +10,10 @@ using Vidly.ViewModels;
 
 namespace Vidly.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class MovieTests
     {
-        [TestMethod]
+        [Test]
         public void Random_WhenCalled_ReturnsRandomMovieViewModel()
         {
             MoviesController moviesController = new MoviesController();
@@ -23,7 +23,7 @@ namespace Vidly.Tests.Controllers
 
             Assert.IsNotNull(vm.Movie);
         }
-        [TestMethod]
+        [Test]
         public void ByReleaseDate_WhenCalled_ReturnReleaseDateAsContent()
         {
             const int year = 2000;
