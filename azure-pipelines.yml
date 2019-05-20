@@ -24,6 +24,23 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+# If reason build is started is "PullRequest"
+# Use GitHub API to check if PR has specific label ("TestR")
+# GitHub API: https://api.github.com/repos/{organization-or-name}/{project}/issues/{pr-number}
+# If found, set output variable testR to true
+# echo "##vso[task.setvariable variable=testR;isOutput=true]true"
+- bash: |
+   echo "Looking for label at https://api.github.com/repos/$BUILD_REPOSITORY_ID/issues/$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER/labels"
+   if curl -s "https://api.github.com/repos/$BUILD_REPOSITORY_ID/issues/$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER/labels" | grep '"name": "TestR"'
+   then
+     echo "##vso[task.setvariable variable=testR;isOutput=true]true"
+     echo "[INFO] TestR label found!"
+   fi
+  displayName: Check for CI label build on PR
+  condition: eq(variables['Build.Reason'], 'PullRequest') # only run step if it is a PR
+  name: checkPrLabel
+    
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
