@@ -56,7 +56,6 @@ namespace Vidly.Controllers
             var customers = new List<Customer>
             {
                 new Customer {Name = "Johnny Customer" },
-                new Customer {Name = "Jane Customer" },
             };
 
             return new RandomMovieViewModel
